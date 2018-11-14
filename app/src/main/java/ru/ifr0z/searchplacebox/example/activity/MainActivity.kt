@@ -1,4 +1,4 @@
-package ru.ifr0z.searchplacebox.example
+package ru.ifr0z.searchplacebox.example.activity
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -9,8 +9,6 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -20,6 +18,8 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.search_place.*
 import org.jetbrains.anko.toast
+import ru.ifr0z.searchplacebox.example.R
+import ru.ifr0z.searchplacebox.example.other.onTextChanges
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -75,37 +75,31 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             true
         })
-        search_place_et.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable) {}
-
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                when {
-                    s.isNotEmpty() -> {
-                        clear_search_iv.animate().alpha(1.0f).setListener(
-                            object : AnimatorListenerAdapter() {
-                                override fun onAnimationEnd(animation: Animator) {
-                                    clear_search_iv.visibility = View.VISIBLE
-                                    clear_search_iv.setOnClickListener {
-                                        search_place_et.setText("")
-                                    }
+        search_place_et.onTextChanges { sequence ->
+            when {
+                sequence!!.isNotEmpty() -> {
+                    clear_search_iv.animate().alpha(1.0f).setListener(
+                        object : AnimatorListenerAdapter() {
+                            override fun onAnimationEnd(animation: Animator) {
+                                clear_search_iv.visibility = View.VISIBLE
+                                clear_search_iv.setOnClickListener {
+                                    search_place_et.setText("")
                                 }
                             }
-                        )
-                    }
-                    s.isEmpty() -> {
-                        clear_search_iv.animate().alpha(0.0f).setListener(
-                            object : AnimatorListenerAdapter() {
-                                override fun onAnimationEnd(animation: Animator) {
-                                    clear_search_iv.visibility = View.INVISIBLE
-                                }
+                        }
+                    )
+                }
+                sequence.isEmpty() -> {
+                    clear_search_iv.animate().alpha(0.0f).setListener(
+                        object : AnimatorListenerAdapter() {
+                            override fun onAnimationEnd(animation: Animator) {
+                                clear_search_iv.visibility = View.INVISIBLE
                             }
-                        )
-                    }
+                        }
+                    )
                 }
             }
-        })
+        }
     }
 
     private fun searchPlaceCursorOn() {
