@@ -1,0 +1,16 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:colorAccent">@color/colorAccent</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+    </style>
+
+    <style name="CustomEditText">
+        <item name="android:theme">@style/EditTextAppTheme</item>
+    </style>
+
+    <style name="EditTextAppTheme">
+        <item name="colorControlActivated">@color/colorPrimary</item>
+    </style>
+</resources>
