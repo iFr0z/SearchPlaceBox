@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SearchPlaceBox</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Настройки</string>
+
+    <string name="search_place_hint">Пример: 55.041,82.93</string>
+    <string name="search_place_latitude">Широта:</string>
+    <string name="search_place_longitude">Долгота:</string>
+    <string name="search_place_request_start">По запросу</string>
+    <string name="search_place_request_end">ничего не найдено</string>
+</resources>

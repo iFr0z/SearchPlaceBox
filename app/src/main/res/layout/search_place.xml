@@ -30,7 +30,7 @@
                 android:background="@color/colorNull"
                 android:cursorVisible="false"
                 android:digits="0123456789.,-"
-                android:hint="@string/place_search_hint"
+                android:hint="@string/search_place_hint"
                 android:imeOptions="actionSearch"
                 android:inputType="numberDecimal"
                 android:singleLine="true"
