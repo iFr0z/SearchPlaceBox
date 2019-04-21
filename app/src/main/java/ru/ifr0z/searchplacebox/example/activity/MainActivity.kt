@@ -2,26 +2,26 @@ package ru.ifr0z.searchplacebox.example.activity
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
-import android.content.Context
 import android.os.Bundle
-import android.support.design.widget.NavigationView
-import android.support.v4.view.GravityCompat
-import android.support.v4.widget.DrawerLayout
+import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener
+import android.support.v4.view.GravityCompat.START
+import android.support.v4.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED
+import android.support.v4.widget.DrawerLayout.LOCK_MODE_UNLOCKED
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.search_place.*
 import org.jetbrains.anko.toast
 import ru.ifr0z.searchplacebox.example.R
-import ru.ifr0z.searchplacebox.example.other.onTextChanges
+import ru.ifr0z.searchplacebox.example.extension.onTextChanges
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             false
         }
         search_place_et.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
-            if (id == EditorInfo.IME_ACTION_SEARCH) {
+            if (id == IME_ACTION_SEARCH) {
                 searchPlaceCursorOff()
 
                 if (search_place_et.text.matches(latLngPattern.toRegex())) {
@@ -110,13 +110,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             searchPlaceCursorOff()
         }
 
-        drawer_l.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        drawer_l.setDrawerLockMode(LOCK_MODE_LOCKED_CLOSED)
     }
 
     private fun searchPlaceCursorOff() {
-        val inputMethodManager =
-            this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-
+        val inputMethodManager = this.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(search_place_et.windowToken, 0)
 
         search_place_et.isCursorVisible = false
@@ -124,14 +122,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         supportActionBar!!.setDisplayHomeAsUpEnabled(false)
         initToggleToolbar()
 
-        drawer_l.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+        drawer_l.setDrawerLockMode(LOCK_MODE_UNLOCKED)
     }
 
     override fun onBackPressed() {
-        val stateDrawer = drawer_l.isDrawerOpen(GravityCompat.START)
+        val stateDrawer = drawer_l.isDrawerOpen(START)
         val stateCursor = search_place_et.isCursorVisible
         when {
-            stateDrawer -> drawer_l.closeDrawer(GravityCompat.START)
+            stateDrawer -> drawer_l.closeDrawer(START)
             stateCursor -> searchPlaceCursorOff()
             !stateDrawer || !stateCursor -> super.onBackPressed()
         }
@@ -152,7 +150,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_send -> {}
         }
 
-        drawer_l.closeDrawer(GravityCompat.START)
+        drawer_l.closeDrawer(START)
         return true
     }
 
