@@ -7,8 +7,6 @@
     <string name="action_settings">Settings</string>
 
     <string name="search_place_hint">Example: 55.041,82.93</string>
-    <string name="search_place_latitude">Latitude:</string>
-    <string name="search_place_longitude">Longitude:</string>
     <string name="search_place_request_start">On request</string>
     <string name="search_place_request_end">nothing found</string>
 </resources>
