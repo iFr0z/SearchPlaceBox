@@ -1,11 +1,8 @@
 package ru.ifr0z.searchplacebox.example.activity
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
@@ -75,30 +72,9 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
             }
             true
         })
-        search_place_et.onTextChanges { sequence ->
-            when {
-                sequence!!.isNotEmpty() -> {
-                    clear_search_iv.animate().alpha(1.0f).setListener(
-                        object : AnimatorListenerAdapter() {
-                            override fun onAnimationEnd(animation: Animator) {
-                                clear_search_iv.visibility = View.VISIBLE
-                                clear_search_iv.setOnClickListener {
-                                    search_place_et.setText("")
-                                }
-                            }
-                        }
-                    )
-                }
-                sequence.isEmpty() -> {
-                    clear_search_iv.animate().alpha(0.0f).setListener(
-                        object : AnimatorListenerAdapter() {
-                            override fun onAnimationEnd(animation: Animator) {
-                                clear_search_iv.visibility = View.INVISIBLE
-                            }
-                        }
-                    )
-                }
-            }
+        search_place_et.onTextChanges(clear_search_iv)
+        clear_search_iv.setOnClickListener {
+            search_place_et.text.clear()
         }
     }
 
